@@ -1,10 +1,16 @@
 import { Request, Response } from "express";
-import { loginUserSchema, registerUserSchema } from "./auth.validation";
+import {
+  forgotPasswordSchema,
+  loginUserSchema,
+  registerUserSchema,
+  resetPasswordSchema,
+} from "./auth.validation";
 import { ApiResponse } from "../../schema/general.schema";
 import bcrypt from "bcrypt";
 import { prisma } from "../../lib/prisma";
-import { sendWelcomeEmail } from "../../lib/email/email";
+import { sendOtpEmail, sendWelcomeEmail } from "../../lib/email/email";
 import { generateToken, verifyRefreshToken, verifyToken } from "../../lib/jwt";
+import { generateOtp } from "../../lib/lib";
 
 export const registerUser = async (req: Request, res: Response) => {
   const parsedBody = registerUserSchema.safeParse(req.body);
@@ -304,4 +310,208 @@ export const logout = async (req: Request, res: Response) => {
   };
 
   return res.status(200).json(response);
+};
+
+export const sendResetPasswordOtp = async (req: Request, res: Response) => {
+  const parsedBody = forgotPasswordSchema.safeParse(req.body);
+
+  if (!parsedBody.success) {
+    const response: ApiResponse<null> = {
+      data: null,
+      message: "Invalid data format",
+      success: false,
+      error: {
+        message: parsedBody.error.issues[0].message,
+      },
+    };
+
+    return res.status(400).json(response);
+  }
+
+  const { email } = parsedBody.data;
+
+  try {
+    const user = await prisma.user.findUnique({
+      where: {
+        email,
+      },
+    });
+
+    if (user) {
+      await prisma.resetPasswordToken.deleteMany({
+        where: {
+          userId: user.id,
+        },
+      });
+
+      const otp = generateOtp();
+      const hashedOtp = await bcrypt.hash(otp, 10);
+
+      await prisma.resetPasswordToken.create({
+        data: {
+          expiresAt: new Date(Date.now() + 10 * 60 * 1000),
+          token: hashedOtp,
+          userId: user.id,
+        },
+      });
+
+      try {
+        await sendOtpEmail(user.email, otp);
+      } catch {
+        await prisma.resetPasswordToken.deleteMany({
+          where: { userId: user.id },
+        });
+        throw new Error("Failed to send OTP email");
+      }
+    }
+
+    const response: ApiResponse<null> = {
+      data: null,
+      message:
+        "If an account with this email exists, you'll receive an OTP shortly.",
+      success: true,
+    };
+
+    return res.status(200).json(response);
+  } catch (error) {
+    const response: ApiResponse<null> = {
+      data: null,
+      message: "Something went wrong",
+      success: false,
+      error: {
+        message: "Internal server error",
+      },
+    };
+    return res.status(500).json(response);
+  }
+};
+
+export const resetPassword = async (req: Request, res: Response) => {
+  const parsedBody = resetPasswordSchema.safeParse(req.body);
+
+  if (!parsedBody.success) {
+    const response: ApiResponse<null> = {
+      data: null,
+      message: "Invalid data format",
+      success: false,
+      error: {
+        message: parsedBody.error.issues[0].message,
+      },
+    };
+
+    return res.status(400).json(response);
+  }
+
+  const { email, newPassword, otp } = parsedBody.data;
+
+  try {
+    const user = await prisma.user.findUnique({
+      where: {
+        email,
+      },
+    });
+
+    if (!user) {
+      const response: ApiResponse<null> = {
+        data: null,
+        message: "Invalid OTP or email",
+        success: false,
+        error: {
+          message: "Invalid OTP or email",
+        },
+      };
+      return res.status(400).json(response);
+    }
+
+    const token = await prisma.resetPasswordToken.findFirst({
+      where: {
+        userId: user.id,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+
+    if (!token) {
+      const response: ApiResponse<null> = {
+        data: null,
+        message: "OTP expired or invalid",
+        success: false,
+        error: {
+          message: "OTP expired or invalid",
+        },
+      };
+      return res.status(400).json(response);
+    }
+
+    const isMatch = await bcrypt.compare(otp, token.token);
+
+    if (!isMatch) {
+      const response: ApiResponse<null> = {
+        data: null,
+        message: "OTP expired or invalid",
+        success: false,
+        error: {
+          message: "OTP expired or invalid",
+        },
+      };
+      return res.status(400).json(response);
+    }
+
+    if (token.expiresAt < new Date()) {
+      const response: ApiResponse<null> = {
+        data: null,
+        message: "OTP expired or invalid",
+        success: false,
+        error: {
+          message: "OTP expired or invalid",
+        },
+      };
+      return res.status(400).json(response);
+    }
+
+    const updatedPassword = await bcrypt.hash(newPassword, 10);
+
+    await prisma.$transaction([
+      prisma.user.update({
+        where: {
+          id: user.id,
+        },
+        data: {
+          passwordHash: updatedPassword,
+        },
+      }),
+      prisma.resetPasswordToken.deleteMany({
+        where: {
+          userId: user.id,
+        },
+      }),
+      prisma.refreshToken.updateMany({
+        where: {
+          userId: user.id,
+        },
+        data: {
+          revoked: true,
+        },
+      }),
+    ]);
+
+    const response: ApiResponse<null> = {
+      data: null,
+      message: "Password reset successful",
+      success: true,
+    };
+
+    return res.status(200).json(response);
+  } catch (error) {
+    const response: ApiResponse<null> = {
+      data: null,
+      message: "Something went wrong",
+      success: false,
+      error: {
+        message: "Internal server error",
+      },
+    };
+    return res.status(500).json(response);
+  }
 };
