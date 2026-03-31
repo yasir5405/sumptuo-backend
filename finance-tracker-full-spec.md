@@ -319,24 +319,24 @@ Aesthetic direction: Clean dark/light mode. No flashy animations. Data-first lay
 
 ```
 ┌──────────────────────────────────────────────────────────────┐
-│                     CLIENT LAYER                              │
+│                     CLIENT LAYER                             │
 │                                                              │
 │   React 18 + TypeScript + Vite                               │
 │   React Router v6 | Tailwind CSS | shadcn/ui                 │
-│   Recharts | React Hook Form + Zod | Axios | PapaParse        │
+│   Recharts | React Hook Form + Zod | Axios | PapaParse       │
 │                                                              │
-│   Deployed: Vercel (CDN edge, auto SSL, preview deploys)      │
+│   Deployed: Vercel (CDN edge, auto SSL, preview deploys)     │
 └──────────────────────┬───────────────────────────────────────┘
                        │ HTTPS REST API
                        │ JWT Bearer Token (Authorization header)
 ┌──────────────────────▼───────────────────────────────────────┐
-│                     SERVER LAYER                              │
+│                     SERVER LAYER                             │
 │                                                              │
 │   Node.js + Express + TypeScript                             │
-│   Prisma ORM | Zod validation | bcrypt | Multer               │
+│   Prisma ORM | Zod validation | bcrypt | Multer              │
 │   csv-parse | @anthropic-ai/sdk                              │
 │                                                              │
-│   Deployed: Railway (auto-deploy from GitHub, $5/mo)          │
+│   Deployed: Railway (auto-deploy from GitHub, $5/mo)         │
 └──────┬─────────────────────────────────────┬─────────────────┘
        │                                     │
 ┌──────▼──────────────┐         ┌────────────▼────────────────┐
