@@ -3,6 +3,7 @@ import { registerUserSchema } from "./auth.validation";
 import { ApiResponse } from "../../schema/general.schema";
 import bcrypt from "bcrypt";
 import { prisma } from "../../lib/prisma";
+import { sendWelcomeEmail } from "../../lib/email/email";
 
 export const registerUser = async (req: Request, res: Response) => {
   const parsedBody = registerUserSchema.safeParse(req.body);
@@ -25,11 +26,15 @@ export const registerUser = async (req: Request, res: Response) => {
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    await prisma.user.create({
+    const user = await prisma.user.create({
       data: {
         email,
         passwordHash: hashedPassword,
         name,
+      },
+      select: {
+        name: true,
+        email: true,
       },
     });
 
@@ -39,7 +44,9 @@ export const registerUser = async (req: Request, res: Response) => {
       success: true,
     };
 
-    return res.status(201).json(response);
+    res.status(201).json(response);
+
+    await sendWelcomeEmail(user.email, user.name);
   } catch (error: any) {
     if (error.code === "P2002") {
       const response: ApiResponse<null> = {
