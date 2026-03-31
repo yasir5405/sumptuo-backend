@@ -27,7 +27,7 @@ model User {
 
 model RefreshToken {
   id        Int      @id @default(autoincrement())
-  token     String
+  token     String   @unique
   userId    Int
   expiresAt DateTime
   revoked   Boolean  @default(false)

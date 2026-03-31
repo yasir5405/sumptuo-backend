@@ -1,5 +1,5 @@
 export type ApiError = {
-  code?: string;
+  code?: number;
   message: string;
 };
 

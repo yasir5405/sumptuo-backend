@@ -2,6 +2,7 @@ import { Router } from "express";
 import {
   getUserDetails,
   loginUser,
+  logout,
   refreshToken,
   registerUser,
 } from "./auth.controller";
@@ -13,5 +14,5 @@ authRouter.post("/signup", registerUser); //signup route
 authRouter.post("/login", loginUser); //login route
 authRouter.get("/me", verifyUser, getUserDetails); //login route
 authRouter.get("/refresh-token", refreshToken); //refresh token route
-
+authRouter.post("/logout", logout);
 export { authRouter };

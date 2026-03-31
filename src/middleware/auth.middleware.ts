@@ -15,6 +15,7 @@ export const verifyUser = async (
       data: null,
       message: "Unauthorized",
       success: false,
+      error: { message: "Unauthorised", code: 401 },
     };
 
     return res.status(401).json(response);
@@ -27,6 +28,7 @@ export const verifyUser = async (
       data: null,
       message: "Unauthorized",
       success: false,
+      error: { message: "Unauthorised", code: 401 },
     };
     return res.status(401).json(response);
   }
@@ -39,6 +41,7 @@ export const verifyUser = async (
         data: null,
         message: "Unauthorized",
         success: false,
+        error: { message: "Unauthorised", code: 401 },
       };
       return res.status(401).json(response);
     }
@@ -54,6 +57,7 @@ export const verifyUser = async (
         data: null,
         message: "Unauthorized",
         success: false,
+        error: { message: "Unauthorised", code: 401 },
       };
       return res.status(401).json(response);
     }
@@ -65,10 +69,22 @@ export const verifyUser = async (
   } catch (error: any) {
     if (error.name === "TokenExpiredError") {
       // console.log("Token has expired");
-      return res.status(401).json({ success: false, message: "Token expired" });
+      const response: ApiResponse<null> = {
+        data: null,
+        message: "Token expired",
+        success: false,
+        error: { message: "Unauthorised", code: 401 },
+      };
+      return res.status(401).json(response);
     } else {
+      const response: ApiResponse<null> = {
+        data: null,
+        message: "Invalid token",
+        success: false,
+        error: { message: "Unauthorised", code: 401 },
+      };
       // console.log("Token invalid for other reasons");
-      return res.status(401).json({ success: false, message: "Invalid token" });
+      return res.status(401).json(response);
     }
   }
 };
