@@ -24,6 +24,7 @@ model User {
   updatedAt     DateTime             @updatedAt
   refreshTokens RefreshToken[]
   resetTokens   ResetPasswordToken[]
+  transactions  Transaction[]
 }
 
 model RefreshToken {
@@ -33,7 +34,7 @@ model RefreshToken {
   expiresAt DateTime
   revoked   Boolean  @default(false)
   createdAt DateTime @default(now())
-  user      User     @relation(fields: [userId], references: [id])
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model ResetPasswordToken {
@@ -43,4 +44,34 @@ model ResetPasswordToken {
   expiresAt DateTime
   user      User     @relation(fields: [userId], references: [id])
   createdAt DateTime @default(now())
+}
+
+model Transaction {
+  id              Int       @id @default(autoincrement())
+  userId          Int
+  user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  amount          Decimal   @db.Decimal(12, 2)
+  type            TxnType
+  category        String
+  description     String?   @db.VarChar(255)
+
+  date            DateTime  @db.Date
+  currency        String    @default("INR")
+  convertedAmount Decimal?  @db.Decimal(12, 2)
+  
+  importId        String?
+  
+  deletedAt       DateTime?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  @@index([userId, date])
+  @@index([userId, category])
+  @@index([userId, type])
+}
+
+enum TxnType {
+  INCOME
+  EXPENSE
 }
