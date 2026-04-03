@@ -32,8 +32,3 @@ export type RefreshToken = Prisma.RefreshTokenModel
  * 
  */
 export type ResetPasswordToken = Prisma.ResetPasswordTokenModel
-/**
- * Model Transaction
- * 
- */
-export type Transaction = Prisma.TransactionModel

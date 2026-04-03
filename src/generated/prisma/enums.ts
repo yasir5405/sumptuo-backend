@@ -9,9 +9,7 @@
 * 🟢 You can import this file directly.
 */
 
-export const TxnType = {
-  INCOME: 'INCOME',
-  EXPENSE: 'EXPENSE'
-} as const
 
-export type TxnType = (typeof TxnType)[keyof typeof TxnType]
+
+// This file is empty because there are no enums in the schema.
+export {}
