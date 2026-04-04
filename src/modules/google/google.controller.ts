@@ -4,6 +4,7 @@ import { oauth2Client } from "./google.service";
 import axios from "axios";
 import { prisma } from "../../lib/prisma";
 import { generateToken } from "../../lib/jwt";
+import { sendWelcomeEmail } from "../../lib/email/email";
 
 export const googleLogin = async (req: Request, res: Response) => {
   try {
@@ -61,6 +62,8 @@ export const googleLogin = async (req: Request, res: Response) => {
           profileImage: picture,
         },
       });
+
+      await sendWelcomeEmail(user.email, user.name);
     } else {
       if (!user.googleId) {
         user = await prisma.user.update({
