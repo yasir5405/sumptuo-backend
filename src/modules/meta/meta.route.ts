@@ -1,9 +1,9 @@
 import { Router } from "express";
-import { connectMeta, metaCallback } from "./meta.controller";
+import { metaCallback, metaConnect } from "./meta.controller";
 
 const metaRouter = Router();
 
-metaRouter.get("/connect", connectMeta);
+metaRouter.get("/connect", metaConnect);
 metaRouter.get("/callback", metaCallback);
 
 export { metaRouter };

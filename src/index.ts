@@ -4,6 +4,7 @@ import { authRouter } from "./modules/auth/auth.route";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import { metaRouter } from "./modules/meta/meta.route";
+import { googleRouter } from "./modules/google/google.route";
 
 const app = express();
 app.use(express.json());
@@ -24,6 +25,7 @@ app.get("/", (req, res) => {
 
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/meta", metaRouter);
+app.use("/api/v1/google", googleRouter);
 
 app.listen(PORT, () => {
   console.log(`The server is running at: http://localhost:${PORT}`);

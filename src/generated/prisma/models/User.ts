@@ -39,6 +39,8 @@ export type UserMinAggregateOutputType = {
   email: string | null
   passwordHash: string | null
   name: string | null
+  googleId: string | null
+  profileImage: string | null
   currency: string | null
   isPro: boolean | null
   proExpiresAt: Date | null
@@ -51,6 +53,8 @@ export type UserMaxAggregateOutputType = {
   email: string | null
   passwordHash: string | null
   name: string | null
+  googleId: string | null
+  profileImage: string | null
   currency: string | null
   isPro: boolean | null
   proExpiresAt: Date | null
@@ -63,6 +67,8 @@ export type UserCountAggregateOutputType = {
   email: number
   passwordHash: number
   name: number
+  googleId: number
+  profileImage: number
   currency: number
   isPro: number
   proExpiresAt: number
@@ -85,6 +91,8 @@ export type UserMinAggregateInputType = {
   email?: true
   passwordHash?: true
   name?: true
+  googleId?: true
+  profileImage?: true
   currency?: true
   isPro?: true
   proExpiresAt?: true
@@ -97,6 +105,8 @@ export type UserMaxAggregateInputType = {
   email?: true
   passwordHash?: true
   name?: true
+  googleId?: true
+  profileImage?: true
   currency?: true
   isPro?: true
   proExpiresAt?: true
@@ -109,6 +119,8 @@ export type UserCountAggregateInputType = {
   email?: true
   passwordHash?: true
   name?: true
+  googleId?: true
+  profileImage?: true
   currency?: true
   isPro?: true
   proExpiresAt?: true
@@ -208,6 +220,8 @@ export type UserGroupByOutputType = {
   email: string
   passwordHash: string
   name: string
+  googleId: string | null
+  profileImage: string | null
   currency: string
   isPro: boolean
   proExpiresAt: Date | null
@@ -243,6 +257,8 @@ export type UserWhereInput = {
   email?: Prisma.StringFilter<"User"> | string
   passwordHash?: Prisma.StringFilter<"User"> | string
   name?: Prisma.StringFilter<"User"> | string
+  googleId?: Prisma.StringNullableFilter<"User"> | string | null
+  profileImage?: Prisma.StringNullableFilter<"User"> | string | null
   currency?: Prisma.StringFilter<"User"> | string
   isPro?: Prisma.BoolFilter<"User"> | boolean
   proExpiresAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
@@ -250,6 +266,7 @@ export type UserWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   refreshTokens?: Prisma.RefreshTokenListRelationFilter
   resetTokens?: Prisma.ResetPasswordTokenListRelationFilter
+  connectedAccounts?: Prisma.ConnectedAccountListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -257,6 +274,8 @@ export type UserOrderByWithRelationInput = {
   email?: Prisma.SortOrder
   passwordHash?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  googleId?: Prisma.SortOrderInput | Prisma.SortOrder
+  profileImage?: Prisma.SortOrderInput | Prisma.SortOrder
   currency?: Prisma.SortOrder
   isPro?: Prisma.SortOrder
   proExpiresAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -264,16 +283,19 @@ export type UserOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrder
   refreshTokens?: Prisma.RefreshTokenOrderByRelationAggregateInput
   resetTokens?: Prisma.ResetPasswordTokenOrderByRelationAggregateInput
+  connectedAccounts?: Prisma.ConnectedAccountOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
   id?: number
   email?: string
+  googleId?: string
   AND?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   OR?: Prisma.UserWhereInput[]
   NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   passwordHash?: Prisma.StringFilter<"User"> | string
   name?: Prisma.StringFilter<"User"> | string
+  profileImage?: Prisma.StringNullableFilter<"User"> | string | null
   currency?: Prisma.StringFilter<"User"> | string
   isPro?: Prisma.BoolFilter<"User"> | boolean
   proExpiresAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
@@ -281,13 +303,16 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   refreshTokens?: Prisma.RefreshTokenListRelationFilter
   resetTokens?: Prisma.ResetPasswordTokenListRelationFilter
-}, "id" | "email">
+  connectedAccounts?: Prisma.ConnectedAccountListRelationFilter
+}, "id" | "email" | "googleId">
 
 export type UserOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   email?: Prisma.SortOrder
   passwordHash?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  googleId?: Prisma.SortOrderInput | Prisma.SortOrder
+  profileImage?: Prisma.SortOrderInput | Prisma.SortOrder
   currency?: Prisma.SortOrder
   isPro?: Prisma.SortOrder
   proExpiresAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -308,6 +333,8 @@ export type UserScalarWhereWithAggregatesInput = {
   email?: Prisma.StringWithAggregatesFilter<"User"> | string
   passwordHash?: Prisma.StringWithAggregatesFilter<"User"> | string
   name?: Prisma.StringWithAggregatesFilter<"User"> | string
+  googleId?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  profileImage?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   currency?: Prisma.StringWithAggregatesFilter<"User"> | string
   isPro?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   proExpiresAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
@@ -319,6 +346,8 @@ export type UserCreateInput = {
   email: string
   passwordHash: string
   name: string
+  googleId?: string | null
+  profileImage?: string | null
   currency?: string
   isPro?: boolean
   proExpiresAt?: Date | string | null
@@ -326,6 +355,7 @@ export type UserCreateInput = {
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   resetTokens?: Prisma.ResetPasswordTokenCreateNestedManyWithoutUserInput
+  connectedAccounts?: Prisma.ConnectedAccountCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -333,6 +363,8 @@ export type UserUncheckedCreateInput = {
   email: string
   passwordHash: string
   name: string
+  googleId?: string | null
+  profileImage?: string | null
   currency?: string
   isPro?: boolean
   proExpiresAt?: Date | string | null
@@ -340,12 +372,15 @@ export type UserUncheckedCreateInput = {
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   resetTokens?: Prisma.ResetPasswordTokenUncheckedCreateNestedManyWithoutUserInput
+  connectedAccounts?: Prisma.ConnectedAccountUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   isPro?: Prisma.BoolFieldUpdateOperationsInput | boolean
   proExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -353,6 +388,7 @@ export type UserUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   resetTokens?: Prisma.ResetPasswordTokenUpdateManyWithoutUserNestedInput
+  connectedAccounts?: Prisma.ConnectedAccountUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -360,6 +396,8 @@ export type UserUncheckedUpdateInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   isPro?: Prisma.BoolFieldUpdateOperationsInput | boolean
   proExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -367,6 +405,7 @@ export type UserUncheckedUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   resetTokens?: Prisma.ResetPasswordTokenUncheckedUpdateManyWithoutUserNestedInput
+  connectedAccounts?: Prisma.ConnectedAccountUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -374,6 +413,8 @@ export type UserCreateManyInput = {
   email: string
   passwordHash: string
   name: string
+  googleId?: string | null
+  profileImage?: string | null
   currency?: string
   isPro?: boolean
   proExpiresAt?: Date | string | null
@@ -385,6 +426,8 @@ export type UserUpdateManyMutationInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   isPro?: Prisma.BoolFieldUpdateOperationsInput | boolean
   proExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -397,6 +440,8 @@ export type UserUncheckedUpdateManyInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   isPro?: Prisma.BoolFieldUpdateOperationsInput | boolean
   proExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -409,6 +454,8 @@ export type UserCountOrderByAggregateInput = {
   email?: Prisma.SortOrder
   passwordHash?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  googleId?: Prisma.SortOrder
+  profileImage?: Prisma.SortOrder
   currency?: Prisma.SortOrder
   isPro?: Prisma.SortOrder
   proExpiresAt?: Prisma.SortOrder
@@ -425,6 +472,8 @@ export type UserMaxOrderByAggregateInput = {
   email?: Prisma.SortOrder
   passwordHash?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  googleId?: Prisma.SortOrder
+  profileImage?: Prisma.SortOrder
   currency?: Prisma.SortOrder
   isPro?: Prisma.SortOrder
   proExpiresAt?: Prisma.SortOrder
@@ -437,6 +486,8 @@ export type UserMinOrderByAggregateInput = {
   email?: Prisma.SortOrder
   passwordHash?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  googleId?: Prisma.SortOrder
+  profileImage?: Prisma.SortOrder
   currency?: Prisma.SortOrder
   isPro?: Prisma.SortOrder
   proExpiresAt?: Prisma.SortOrder
@@ -455,6 +506,10 @@ export type UserScalarRelationFilter = {
 
 export type StringFieldUpdateOperationsInput = {
   set?: string
+}
+
+export type NullableStringFieldUpdateOperationsInput = {
+  set?: string | null
 }
 
 export type BoolFieldUpdateOperationsInput = {
@@ -505,16 +560,33 @@ export type UserUpdateOneRequiredWithoutResetTokensNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutResetTokensInput, Prisma.UserUpdateWithoutResetTokensInput>, Prisma.UserUncheckedUpdateWithoutResetTokensInput>
 }
 
+export type UserCreateNestedOneWithoutConnectedAccountsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutConnectedAccountsInput, Prisma.UserUncheckedCreateWithoutConnectedAccountsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutConnectedAccountsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutConnectedAccountsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutConnectedAccountsInput, Prisma.UserUncheckedCreateWithoutConnectedAccountsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutConnectedAccountsInput
+  upsert?: Prisma.UserUpsertWithoutConnectedAccountsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutConnectedAccountsInput, Prisma.UserUpdateWithoutConnectedAccountsInput>, Prisma.UserUncheckedUpdateWithoutConnectedAccountsInput>
+}
+
 export type UserCreateWithoutRefreshTokensInput = {
   email: string
   passwordHash: string
   name: string
+  googleId?: string | null
+  profileImage?: string | null
   currency?: string
   isPro?: boolean
   proExpiresAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   resetTokens?: Prisma.ResetPasswordTokenCreateNestedManyWithoutUserInput
+  connectedAccounts?: Prisma.ConnectedAccountCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutRefreshTokensInput = {
@@ -522,12 +594,15 @@ export type UserUncheckedCreateWithoutRefreshTokensInput = {
   email: string
   passwordHash: string
   name: string
+  googleId?: string | null
+  profileImage?: string | null
   currency?: string
   isPro?: boolean
   proExpiresAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   resetTokens?: Prisma.ResetPasswordTokenUncheckedCreateNestedManyWithoutUserInput
+  connectedAccounts?: Prisma.ConnectedAccountUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutRefreshTokensInput = {
@@ -550,12 +625,15 @@ export type UserUpdateWithoutRefreshTokensInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   isPro?: Prisma.BoolFieldUpdateOperationsInput | boolean
   proExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   resetTokens?: Prisma.ResetPasswordTokenUpdateManyWithoutUserNestedInput
+  connectedAccounts?: Prisma.ConnectedAccountUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRefreshTokensInput = {
@@ -563,24 +641,30 @@ export type UserUncheckedUpdateWithoutRefreshTokensInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   isPro?: Prisma.BoolFieldUpdateOperationsInput | boolean
   proExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   resetTokens?: Prisma.ResetPasswordTokenUncheckedUpdateManyWithoutUserNestedInput
+  connectedAccounts?: Prisma.ConnectedAccountUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutResetTokensInput = {
   email: string
   passwordHash: string
   name: string
+  googleId?: string | null
+  profileImage?: string | null
   currency?: string
   isPro?: boolean
   proExpiresAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  connectedAccounts?: Prisma.ConnectedAccountCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutResetTokensInput = {
@@ -588,12 +672,15 @@ export type UserUncheckedCreateWithoutResetTokensInput = {
   email: string
   passwordHash: string
   name: string
+  googleId?: string | null
+  profileImage?: string | null
   currency?: string
   isPro?: boolean
   proExpiresAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  connectedAccounts?: Prisma.ConnectedAccountUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutResetTokensInput = {
@@ -616,12 +703,15 @@ export type UserUpdateWithoutResetTokensInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   isPro?: Prisma.BoolFieldUpdateOperationsInput | boolean
   proExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  connectedAccounts?: Prisma.ConnectedAccountUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutResetTokensInput = {
@@ -629,12 +719,93 @@ export type UserUncheckedUpdateWithoutResetTokensInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   isPro?: Prisma.BoolFieldUpdateOperationsInput | boolean
   proExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  connectedAccounts?: Prisma.ConnectedAccountUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutConnectedAccountsInput = {
+  email: string
+  passwordHash: string
+  name: string
+  googleId?: string | null
+  profileImage?: string | null
+  currency?: string
+  isPro?: boolean
+  proExpiresAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  resetTokens?: Prisma.ResetPasswordTokenCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutConnectedAccountsInput = {
+  id?: number
+  email: string
+  passwordHash: string
+  name: string
+  googleId?: string | null
+  profileImage?: string | null
+  currency?: string
+  isPro?: boolean
+  proExpiresAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  resetTokens?: Prisma.ResetPasswordTokenUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutConnectedAccountsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutConnectedAccountsInput, Prisma.UserUncheckedCreateWithoutConnectedAccountsInput>
+}
+
+export type UserUpsertWithoutConnectedAccountsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutConnectedAccountsInput, Prisma.UserUncheckedUpdateWithoutConnectedAccountsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutConnectedAccountsInput, Prisma.UserUncheckedCreateWithoutConnectedAccountsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutConnectedAccountsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutConnectedAccountsInput, Prisma.UserUncheckedUpdateWithoutConnectedAccountsInput>
+}
+
+export type UserUpdateWithoutConnectedAccountsInput = {
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  isPro?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  proExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  resetTokens?: Prisma.ResetPasswordTokenUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutConnectedAccountsInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  isPro?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  proExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  resetTokens?: Prisma.ResetPasswordTokenUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -645,11 +816,13 @@ export type UserUncheckedUpdateWithoutResetTokensInput = {
 export type UserCountOutputType = {
   refreshTokens: number
   resetTokens: number
+  connectedAccounts: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   refreshTokens?: boolean | UserCountOutputTypeCountRefreshTokensArgs
   resetTokens?: boolean | UserCountOutputTypeCountResetTokensArgs
+  connectedAccounts?: boolean | UserCountOutputTypeCountConnectedAccountsArgs
 }
 
 /**
@@ -676,12 +849,21 @@ export type UserCountOutputTypeCountResetTokensArgs<ExtArgs extends runtime.Type
   where?: Prisma.ResetPasswordTokenWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountConnectedAccountsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ConnectedAccountWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   email?: boolean
   passwordHash?: boolean
   name?: boolean
+  googleId?: boolean
+  profileImage?: boolean
   currency?: boolean
   isPro?: boolean
   proExpiresAt?: boolean
@@ -689,6 +871,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   updatedAt?: boolean
   refreshTokens?: boolean | Prisma.User$refreshTokensArgs<ExtArgs>
   resetTokens?: boolean | Prisma.User$resetTokensArgs<ExtArgs>
+  connectedAccounts?: boolean | Prisma.User$connectedAccountsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -697,6 +880,8 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   email?: boolean
   passwordHash?: boolean
   name?: boolean
+  googleId?: boolean
+  profileImage?: boolean
   currency?: boolean
   isPro?: boolean
   proExpiresAt?: boolean
@@ -709,6 +894,8 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   email?: boolean
   passwordHash?: boolean
   name?: boolean
+  googleId?: boolean
+  profileImage?: boolean
   currency?: boolean
   isPro?: boolean
   proExpiresAt?: boolean
@@ -721,6 +908,8 @@ export type UserSelectScalar = {
   email?: boolean
   passwordHash?: boolean
   name?: boolean
+  googleId?: boolean
+  profileImage?: boolean
   currency?: boolean
   isPro?: boolean
   proExpiresAt?: boolean
@@ -728,10 +917,11 @@ export type UserSelectScalar = {
   updatedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "passwordHash" | "name" | "currency" | "isPro" | "proExpiresAt" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "passwordHash" | "name" | "googleId" | "profileImage" | "currency" | "isPro" | "proExpiresAt" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   refreshTokens?: boolean | Prisma.User$refreshTokensArgs<ExtArgs>
   resetTokens?: boolean | Prisma.User$resetTokensArgs<ExtArgs>
+  connectedAccounts?: boolean | Prisma.User$connectedAccountsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -742,12 +932,15 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   objects: {
     refreshTokens: Prisma.$RefreshTokenPayload<ExtArgs>[]
     resetTokens: Prisma.$ResetPasswordTokenPayload<ExtArgs>[]
+    connectedAccounts: Prisma.$ConnectedAccountPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     email: string
     passwordHash: string
     name: string
+    googleId: string | null
+    profileImage: string | null
     currency: string
     isPro: boolean
     proExpiresAt: Date | null
@@ -1149,6 +1342,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   readonly [Symbol.toStringTag]: "PrismaPromise"
   refreshTokens<T extends Prisma.User$refreshTokensArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$refreshTokensArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RefreshTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   resetTokens<T extends Prisma.User$resetTokensArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$resetTokensArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ResetPasswordTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  connectedAccounts<T extends Prisma.User$connectedAccountsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$connectedAccountsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ConnectedAccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1182,6 +1376,8 @@ export interface UserFieldRefs {
   readonly email: Prisma.FieldRef<"User", 'String'>
   readonly passwordHash: Prisma.FieldRef<"User", 'String'>
   readonly name: Prisma.FieldRef<"User", 'String'>
+  readonly googleId: Prisma.FieldRef<"User", 'String'>
+  readonly profileImage: Prisma.FieldRef<"User", 'String'>
   readonly currency: Prisma.FieldRef<"User", 'String'>
   readonly isPro: Prisma.FieldRef<"User", 'Boolean'>
   readonly proExpiresAt: Prisma.FieldRef<"User", 'DateTime'>
@@ -1625,6 +1821,30 @@ export type User$resetTokensArgs<ExtArgs extends runtime.Types.Extensions.Intern
   take?: number
   skip?: number
   distinct?: Prisma.ResetPasswordTokenScalarFieldEnum | Prisma.ResetPasswordTokenScalarFieldEnum[]
+}
+
+/**
+ * User.connectedAccounts
+ */
+export type User$connectedAccountsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ConnectedAccount
+   */
+  select?: Prisma.ConnectedAccountSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ConnectedAccount
+   */
+  omit?: Prisma.ConnectedAccountOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ConnectedAccountInclude<ExtArgs> | null
+  where?: Prisma.ConnectedAccountWhereInput
+  orderBy?: Prisma.ConnectedAccountOrderByWithRelationInput | Prisma.ConnectedAccountOrderByWithRelationInput[]
+  cursor?: Prisma.ConnectedAccountWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ConnectedAccountScalarFieldEnum | Prisma.ConnectedAccountScalarFieldEnum[]
 }
 
 /**

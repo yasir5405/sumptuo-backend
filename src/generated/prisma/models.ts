@@ -11,4 +11,6 @@
 export type * from './models/User'
 export type * from './models/RefreshToken'
 export type * from './models/ResetPasswordToken'
+export type * from './models/ConnectedAccount'
+export type * from './models/CachedInsight'
 export type * from './commonInputTypes'

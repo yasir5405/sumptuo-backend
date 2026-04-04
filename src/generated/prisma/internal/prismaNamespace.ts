@@ -386,7 +386,9 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 export const ModelName = {
   User: 'User',
   RefreshToken: 'RefreshToken',
-  ResetPasswordToken: 'ResetPasswordToken'
+  ResetPasswordToken: 'ResetPasswordToken',
+  ConnectedAccount: 'ConnectedAccount',
+  CachedInsight: 'CachedInsight'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -402,7 +404,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "refreshToken" | "resetPasswordToken"
+    modelProps: "user" | "refreshToken" | "resetPasswordToken" | "connectedAccount" | "cachedInsight"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -628,6 +630,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    ConnectedAccount: {
+      payload: Prisma.$ConnectedAccountPayload<ExtArgs>
+      fields: Prisma.ConnectedAccountFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ConnectedAccountFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConnectedAccountPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ConnectedAccountFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConnectedAccountPayload>
+        }
+        findFirst: {
+          args: Prisma.ConnectedAccountFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConnectedAccountPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ConnectedAccountFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConnectedAccountPayload>
+        }
+        findMany: {
+          args: Prisma.ConnectedAccountFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConnectedAccountPayload>[]
+        }
+        create: {
+          args: Prisma.ConnectedAccountCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConnectedAccountPayload>
+        }
+        createMany: {
+          args: Prisma.ConnectedAccountCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ConnectedAccountCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConnectedAccountPayload>[]
+        }
+        delete: {
+          args: Prisma.ConnectedAccountDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConnectedAccountPayload>
+        }
+        update: {
+          args: Prisma.ConnectedAccountUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConnectedAccountPayload>
+        }
+        deleteMany: {
+          args: Prisma.ConnectedAccountDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ConnectedAccountUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ConnectedAccountUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConnectedAccountPayload>[]
+        }
+        upsert: {
+          args: Prisma.ConnectedAccountUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConnectedAccountPayload>
+        }
+        aggregate: {
+          args: Prisma.ConnectedAccountAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateConnectedAccount>
+        }
+        groupBy: {
+          args: Prisma.ConnectedAccountGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ConnectedAccountGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ConnectedAccountCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ConnectedAccountCountAggregateOutputType> | number
+        }
+      }
+    }
+    CachedInsight: {
+      payload: Prisma.$CachedInsightPayload<ExtArgs>
+      fields: Prisma.CachedInsightFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CachedInsightFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CachedInsightPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CachedInsightFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CachedInsightPayload>
+        }
+        findFirst: {
+          args: Prisma.CachedInsightFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CachedInsightPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CachedInsightFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CachedInsightPayload>
+        }
+        findMany: {
+          args: Prisma.CachedInsightFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CachedInsightPayload>[]
+        }
+        create: {
+          args: Prisma.CachedInsightCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CachedInsightPayload>
+        }
+        createMany: {
+          args: Prisma.CachedInsightCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.CachedInsightCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CachedInsightPayload>[]
+        }
+        delete: {
+          args: Prisma.CachedInsightDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CachedInsightPayload>
+        }
+        update: {
+          args: Prisma.CachedInsightUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CachedInsightPayload>
+        }
+        deleteMany: {
+          args: Prisma.CachedInsightDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CachedInsightUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.CachedInsightUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CachedInsightPayload>[]
+        }
+        upsert: {
+          args: Prisma.CachedInsightUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CachedInsightPayload>
+        }
+        aggregate: {
+          args: Prisma.CachedInsightAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCachedInsight>
+        }
+        groupBy: {
+          args: Prisma.CachedInsightGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CachedInsightGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CachedInsightCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CachedInsightCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -672,6 +822,8 @@ export const UserScalarFieldEnum = {
   email: 'email',
   passwordHash: 'passwordHash',
   name: 'name',
+  googleId: 'googleId',
+  profileImage: 'profileImage',
   currency: 'currency',
   isPro: 'isPro',
   proExpiresAt: 'proExpiresAt',
@@ -703,6 +855,41 @@ export const ResetPasswordTokenScalarFieldEnum = {
 } as const
 
 export type ResetPasswordTokenScalarFieldEnum = (typeof ResetPasswordTokenScalarFieldEnum)[keyof typeof ResetPasswordTokenScalarFieldEnum]
+
+
+export const ConnectedAccountScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  platform: 'platform',
+  accessToken: 'accessToken',
+  expiresAt: 'expiresAt',
+  adAccountId: 'adAccountId',
+  adAccountName: 'adAccountName',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ConnectedAccountScalarFieldEnum = (typeof ConnectedAccountScalarFieldEnum)[keyof typeof ConnectedAccountScalarFieldEnum]
+
+
+export const CachedInsightScalarFieldEnum = {
+  id: 'id',
+  connectedAccountId: 'connectedAccountId',
+  date: 'date',
+  campaignId: 'campaignId',
+  campaignName: 'campaignName',
+  status: 'status',
+  spend: 'spend',
+  impressions: 'impressions',
+  clicks: 'clicks',
+  ctr: 'ctr',
+  cpm: 'cpm',
+  conversions: 'conversions',
+  revenue: 'revenue',
+  fetchedAt: 'fetchedAt'
+} as const
+
+export type CachedInsightScalarFieldEnum = (typeof CachedInsightScalarFieldEnum)[keyof typeof CachedInsightScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -781,6 +968,34 @@ export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel
  * Reference to a field of type 'DateTime[]'
  */
 export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Platform'
+ */
+export type EnumPlatformFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Platform'>
+    
+
+
+/**
+ * Reference to a field of type 'Platform[]'
+ */
+export type ListEnumPlatformFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Platform[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Decimal'
+ */
+export type DecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal'>
+    
+
+
+/**
+ * Reference to a field of type 'Decimal[]'
+ */
+export type ListDecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal[]'>
     
 
 
@@ -895,6 +1110,8 @@ export type GlobalOmitConfig = {
   user?: Prisma.UserOmit
   refreshToken?: Prisma.RefreshTokenOmit
   resetPasswordToken?: Prisma.ResetPasswordTokenOmit
+  connectedAccount?: Prisma.ConnectedAccountOmit
+  cachedInsight?: Prisma.CachedInsightOmit
 }
 
 /* Types for Logging */

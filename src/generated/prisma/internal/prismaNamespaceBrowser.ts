@@ -53,7 +53,9 @@ export const AnyNull = runtime.AnyNull
 export const ModelName = {
   User: 'User',
   RefreshToken: 'RefreshToken',
-  ResetPasswordToken: 'ResetPasswordToken'
+  ResetPasswordToken: 'ResetPasswordToken',
+  ConnectedAccount: 'ConnectedAccount',
+  CachedInsight: 'CachedInsight'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -77,6 +79,8 @@ export const UserScalarFieldEnum = {
   email: 'email',
   passwordHash: 'passwordHash',
   name: 'name',
+  googleId: 'googleId',
+  profileImage: 'profileImage',
   currency: 'currency',
   isPro: 'isPro',
   proExpiresAt: 'proExpiresAt',
@@ -108,6 +112,41 @@ export const ResetPasswordTokenScalarFieldEnum = {
 } as const
 
 export type ResetPasswordTokenScalarFieldEnum = (typeof ResetPasswordTokenScalarFieldEnum)[keyof typeof ResetPasswordTokenScalarFieldEnum]
+
+
+export const ConnectedAccountScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  platform: 'platform',
+  accessToken: 'accessToken',
+  expiresAt: 'expiresAt',
+  adAccountId: 'adAccountId',
+  adAccountName: 'adAccountName',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ConnectedAccountScalarFieldEnum = (typeof ConnectedAccountScalarFieldEnum)[keyof typeof ConnectedAccountScalarFieldEnum]
+
+
+export const CachedInsightScalarFieldEnum = {
+  id: 'id',
+  connectedAccountId: 'connectedAccountId',
+  date: 'date',
+  campaignId: 'campaignId',
+  campaignName: 'campaignName',
+  status: 'status',
+  spend: 'spend',
+  impressions: 'impressions',
+  clicks: 'clicks',
+  ctr: 'ctr',
+  cpm: 'cpm',
+  conversions: 'conversions',
+  revenue: 'revenue',
+  fetchedAt: 'fetchedAt'
+} as const
+
+export type CachedInsightScalarFieldEnum = (typeof CachedInsightScalarFieldEnum)[keyof typeof CachedInsightScalarFieldEnum]
 
 
 export const SortOrder = {

@@ -54,3 +54,13 @@ export type RefreshToken = Prisma.RefreshTokenModel
  * 
  */
 export type ResetPasswordToken = Prisma.ResetPasswordTokenModel
+/**
+ * Model ConnectedAccount
+ * 
+ */
+export type ConnectedAccount = Prisma.ConnectedAccountModel
+/**
+ * Model CachedInsight
+ * 
+ */
+export type CachedInsight = Prisma.CachedInsightModel
