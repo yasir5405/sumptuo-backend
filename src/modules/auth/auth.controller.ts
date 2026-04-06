@@ -9,7 +9,7 @@ import { ApiResponse } from "../../schema/general.schema";
 import bcrypt from "bcrypt";
 import { prisma } from "../../lib/prisma";
 import { sendOtpEmail, sendWelcomeEmail } from "../../lib/email/email";
-import { generateToken, verifyRefreshToken, verifyToken } from "../../lib/jwt";
+import { generateToken, verifyRefreshToken } from "../../lib/jwt";
 import { generateOtp } from "../../lib/lib";
 
 export const registerUser = async (req: Request, res: Response) => {

@@ -10,7 +10,7 @@
 */
 
 export const Platform = {
-  META: 'META'
+  GOOGLE: 'GOOGLE'
 } as const
 
 export type Platform = (typeof Platform)[keyof typeof Platform]

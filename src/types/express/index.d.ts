@@ -9,6 +9,7 @@ declare global {
         proExpiresAt: Date | null;
         createdAt: Date;
         updatedAt: Date;
+        profileImage: string | null;
         id: number;
       };
     }

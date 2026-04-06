@@ -40,6 +40,7 @@ export type ConnectedAccountMinAggregateOutputType = {
   id: number | null
   userId: number | null
   platform: $Enums.Platform | null
+  refreshToken: string | null
   accessToken: string | null
   expiresAt: Date | null
   adAccountId: string | null
@@ -52,6 +53,7 @@ export type ConnectedAccountMaxAggregateOutputType = {
   id: number | null
   userId: number | null
   platform: $Enums.Platform | null
+  refreshToken: string | null
   accessToken: string | null
   expiresAt: Date | null
   adAccountId: string | null
@@ -64,6 +66,7 @@ export type ConnectedAccountCountAggregateOutputType = {
   id: number
   userId: number
   platform: number
+  refreshToken: number
   accessToken: number
   expiresAt: number
   adAccountId: number
@@ -88,6 +91,7 @@ export type ConnectedAccountMinAggregateInputType = {
   id?: true
   userId?: true
   platform?: true
+  refreshToken?: true
   accessToken?: true
   expiresAt?: true
   adAccountId?: true
@@ -100,6 +104,7 @@ export type ConnectedAccountMaxAggregateInputType = {
   id?: true
   userId?: true
   platform?: true
+  refreshToken?: true
   accessToken?: true
   expiresAt?: true
   adAccountId?: true
@@ -112,6 +117,7 @@ export type ConnectedAccountCountAggregateInputType = {
   id?: true
   userId?: true
   platform?: true
+  refreshToken?: true
   accessToken?: true
   expiresAt?: true
   adAccountId?: true
@@ -211,6 +217,7 @@ export type ConnectedAccountGroupByOutputType = {
   id: number
   userId: number
   platform: $Enums.Platform
+  refreshToken: string
   accessToken: string
   expiresAt: Date
   adAccountId: string
@@ -246,6 +253,7 @@ export type ConnectedAccountWhereInput = {
   id?: Prisma.IntFilter<"ConnectedAccount"> | number
   userId?: Prisma.IntFilter<"ConnectedAccount"> | number
   platform?: Prisma.EnumPlatformFilter<"ConnectedAccount"> | $Enums.Platform
+  refreshToken?: Prisma.StringFilter<"ConnectedAccount"> | string
   accessToken?: Prisma.StringFilter<"ConnectedAccount"> | string
   expiresAt?: Prisma.DateTimeFilter<"ConnectedAccount"> | Date | string
   adAccountId?: Prisma.StringFilter<"ConnectedAccount"> | string
@@ -260,6 +268,7 @@ export type ConnectedAccountOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   platform?: Prisma.SortOrder
+  refreshToken?: Prisma.SortOrder
   accessToken?: Prisma.SortOrder
   expiresAt?: Prisma.SortOrder
   adAccountId?: Prisma.SortOrder
@@ -278,6 +287,7 @@ export type ConnectedAccountWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.ConnectedAccountWhereInput | Prisma.ConnectedAccountWhereInput[]
   userId?: Prisma.IntFilter<"ConnectedAccount"> | number
   platform?: Prisma.EnumPlatformFilter<"ConnectedAccount"> | $Enums.Platform
+  refreshToken?: Prisma.StringFilter<"ConnectedAccount"> | string
   accessToken?: Prisma.StringFilter<"ConnectedAccount"> | string
   expiresAt?: Prisma.DateTimeFilter<"ConnectedAccount"> | Date | string
   adAccountId?: Prisma.StringFilter<"ConnectedAccount"> | string
@@ -292,6 +302,7 @@ export type ConnectedAccountOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   platform?: Prisma.SortOrder
+  refreshToken?: Prisma.SortOrder
   accessToken?: Prisma.SortOrder
   expiresAt?: Prisma.SortOrder
   adAccountId?: Prisma.SortOrder
@@ -312,6 +323,7 @@ export type ConnectedAccountScalarWhereWithAggregatesInput = {
   id?: Prisma.IntWithAggregatesFilter<"ConnectedAccount"> | number
   userId?: Prisma.IntWithAggregatesFilter<"ConnectedAccount"> | number
   platform?: Prisma.EnumPlatformWithAggregatesFilter<"ConnectedAccount"> | $Enums.Platform
+  refreshToken?: Prisma.StringWithAggregatesFilter<"ConnectedAccount"> | string
   accessToken?: Prisma.StringWithAggregatesFilter<"ConnectedAccount"> | string
   expiresAt?: Prisma.DateTimeWithAggregatesFilter<"ConnectedAccount"> | Date | string
   adAccountId?: Prisma.StringWithAggregatesFilter<"ConnectedAccount"> | string
@@ -322,6 +334,7 @@ export type ConnectedAccountScalarWhereWithAggregatesInput = {
 
 export type ConnectedAccountCreateInput = {
   platform: $Enums.Platform
+  refreshToken: string
   accessToken: string
   expiresAt: Date | string
   adAccountId: string
@@ -336,6 +349,7 @@ export type ConnectedAccountUncheckedCreateInput = {
   id?: number
   userId: number
   platform: $Enums.Platform
+  refreshToken: string
   accessToken: string
   expiresAt: Date | string
   adAccountId: string
@@ -347,6 +361,7 @@ export type ConnectedAccountUncheckedCreateInput = {
 
 export type ConnectedAccountUpdateInput = {
   platform?: Prisma.EnumPlatformFieldUpdateOperationsInput | $Enums.Platform
+  refreshToken?: Prisma.StringFieldUpdateOperationsInput | string
   accessToken?: Prisma.StringFieldUpdateOperationsInput | string
   expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   adAccountId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -361,6 +376,7 @@ export type ConnectedAccountUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.IntFieldUpdateOperationsInput | number
   platform?: Prisma.EnumPlatformFieldUpdateOperationsInput | $Enums.Platform
+  refreshToken?: Prisma.StringFieldUpdateOperationsInput | string
   accessToken?: Prisma.StringFieldUpdateOperationsInput | string
   expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   adAccountId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -374,6 +390,7 @@ export type ConnectedAccountCreateManyInput = {
   id?: number
   userId: number
   platform: $Enums.Platform
+  refreshToken: string
   accessToken: string
   expiresAt: Date | string
   adAccountId: string
@@ -384,6 +401,7 @@ export type ConnectedAccountCreateManyInput = {
 
 export type ConnectedAccountUpdateManyMutationInput = {
   platform?: Prisma.EnumPlatformFieldUpdateOperationsInput | $Enums.Platform
+  refreshToken?: Prisma.StringFieldUpdateOperationsInput | string
   accessToken?: Prisma.StringFieldUpdateOperationsInput | string
   expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   adAccountId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -396,6 +414,7 @@ export type ConnectedAccountUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.IntFieldUpdateOperationsInput | number
   platform?: Prisma.EnumPlatformFieldUpdateOperationsInput | $Enums.Platform
+  refreshToken?: Prisma.StringFieldUpdateOperationsInput | string
   accessToken?: Prisma.StringFieldUpdateOperationsInput | string
   expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   adAccountId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -424,6 +443,7 @@ export type ConnectedAccountCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   platform?: Prisma.SortOrder
+  refreshToken?: Prisma.SortOrder
   accessToken?: Prisma.SortOrder
   expiresAt?: Prisma.SortOrder
   adAccountId?: Prisma.SortOrder
@@ -441,6 +461,7 @@ export type ConnectedAccountMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   platform?: Prisma.SortOrder
+  refreshToken?: Prisma.SortOrder
   accessToken?: Prisma.SortOrder
   expiresAt?: Prisma.SortOrder
   adAccountId?: Prisma.SortOrder
@@ -453,6 +474,7 @@ export type ConnectedAccountMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   platform?: Prisma.SortOrder
+  refreshToken?: Prisma.SortOrder
   accessToken?: Prisma.SortOrder
   expiresAt?: Prisma.SortOrder
   adAccountId?: Prisma.SortOrder
@@ -533,6 +555,7 @@ export type ConnectedAccountUpdateOneRequiredWithoutInsightsNestedInput = {
 
 export type ConnectedAccountCreateWithoutUserInput = {
   platform: $Enums.Platform
+  refreshToken: string
   accessToken: string
   expiresAt: Date | string
   adAccountId: string
@@ -545,6 +568,7 @@ export type ConnectedAccountCreateWithoutUserInput = {
 export type ConnectedAccountUncheckedCreateWithoutUserInput = {
   id?: number
   platform: $Enums.Platform
+  refreshToken: string
   accessToken: string
   expiresAt: Date | string
   adAccountId: string
@@ -587,6 +611,7 @@ export type ConnectedAccountScalarWhereInput = {
   id?: Prisma.IntFilter<"ConnectedAccount"> | number
   userId?: Prisma.IntFilter<"ConnectedAccount"> | number
   platform?: Prisma.EnumPlatformFilter<"ConnectedAccount"> | $Enums.Platform
+  refreshToken?: Prisma.StringFilter<"ConnectedAccount"> | string
   accessToken?: Prisma.StringFilter<"ConnectedAccount"> | string
   expiresAt?: Prisma.DateTimeFilter<"ConnectedAccount"> | Date | string
   adAccountId?: Prisma.StringFilter<"ConnectedAccount"> | string
@@ -597,6 +622,7 @@ export type ConnectedAccountScalarWhereInput = {
 
 export type ConnectedAccountCreateWithoutInsightsInput = {
   platform: $Enums.Platform
+  refreshToken: string
   accessToken: string
   expiresAt: Date | string
   adAccountId: string
@@ -610,6 +636,7 @@ export type ConnectedAccountUncheckedCreateWithoutInsightsInput = {
   id?: number
   userId: number
   platform: $Enums.Platform
+  refreshToken: string
   accessToken: string
   expiresAt: Date | string
   adAccountId: string
@@ -636,6 +663,7 @@ export type ConnectedAccountUpdateToOneWithWhereWithoutInsightsInput = {
 
 export type ConnectedAccountUpdateWithoutInsightsInput = {
   platform?: Prisma.EnumPlatformFieldUpdateOperationsInput | $Enums.Platform
+  refreshToken?: Prisma.StringFieldUpdateOperationsInput | string
   accessToken?: Prisma.StringFieldUpdateOperationsInput | string
   expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   adAccountId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -649,6 +677,7 @@ export type ConnectedAccountUncheckedUpdateWithoutInsightsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.IntFieldUpdateOperationsInput | number
   platform?: Prisma.EnumPlatformFieldUpdateOperationsInput | $Enums.Platform
+  refreshToken?: Prisma.StringFieldUpdateOperationsInput | string
   accessToken?: Prisma.StringFieldUpdateOperationsInput | string
   expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   adAccountId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -660,6 +689,7 @@ export type ConnectedAccountUncheckedUpdateWithoutInsightsInput = {
 export type ConnectedAccountCreateManyUserInput = {
   id?: number
   platform: $Enums.Platform
+  refreshToken: string
   accessToken: string
   expiresAt: Date | string
   adAccountId: string
@@ -670,6 +700,7 @@ export type ConnectedAccountCreateManyUserInput = {
 
 export type ConnectedAccountUpdateWithoutUserInput = {
   platform?: Prisma.EnumPlatformFieldUpdateOperationsInput | $Enums.Platform
+  refreshToken?: Prisma.StringFieldUpdateOperationsInput | string
   accessToken?: Prisma.StringFieldUpdateOperationsInput | string
   expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   adAccountId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -682,6 +713,7 @@ export type ConnectedAccountUpdateWithoutUserInput = {
 export type ConnectedAccountUncheckedUpdateWithoutUserInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   platform?: Prisma.EnumPlatformFieldUpdateOperationsInput | $Enums.Platform
+  refreshToken?: Prisma.StringFieldUpdateOperationsInput | string
   accessToken?: Prisma.StringFieldUpdateOperationsInput | string
   expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   adAccountId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -694,6 +726,7 @@ export type ConnectedAccountUncheckedUpdateWithoutUserInput = {
 export type ConnectedAccountUncheckedUpdateManyWithoutUserInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   platform?: Prisma.EnumPlatformFieldUpdateOperationsInput | $Enums.Platform
+  refreshToken?: Prisma.StringFieldUpdateOperationsInput | string
   accessToken?: Prisma.StringFieldUpdateOperationsInput | string
   expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   adAccountId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -737,6 +770,7 @@ export type ConnectedAccountSelect<ExtArgs extends runtime.Types.Extensions.Inte
   id?: boolean
   userId?: boolean
   platform?: boolean
+  refreshToken?: boolean
   accessToken?: boolean
   expiresAt?: boolean
   adAccountId?: boolean
@@ -752,6 +786,7 @@ export type ConnectedAccountSelectCreateManyAndReturn<ExtArgs extends runtime.Ty
   id?: boolean
   userId?: boolean
   platform?: boolean
+  refreshToken?: boolean
   accessToken?: boolean
   expiresAt?: boolean
   adAccountId?: boolean
@@ -765,6 +800,7 @@ export type ConnectedAccountSelectUpdateManyAndReturn<ExtArgs extends runtime.Ty
   id?: boolean
   userId?: boolean
   platform?: boolean
+  refreshToken?: boolean
   accessToken?: boolean
   expiresAt?: boolean
   adAccountId?: boolean
@@ -778,6 +814,7 @@ export type ConnectedAccountSelectScalar = {
   id?: boolean
   userId?: boolean
   platform?: boolean
+  refreshToken?: boolean
   accessToken?: boolean
   expiresAt?: boolean
   adAccountId?: boolean
@@ -786,7 +823,7 @@ export type ConnectedAccountSelectScalar = {
   updatedAt?: boolean
 }
 
-export type ConnectedAccountOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "platform" | "accessToken" | "expiresAt" | "adAccountId" | "adAccountName" | "createdAt" | "updatedAt", ExtArgs["result"]["connectedAccount"]>
+export type ConnectedAccountOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "platform" | "refreshToken" | "accessToken" | "expiresAt" | "adAccountId" | "adAccountName" | "createdAt" | "updatedAt", ExtArgs["result"]["connectedAccount"]>
 export type ConnectedAccountInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   insights?: boolean | Prisma.ConnectedAccount$insightsArgs<ExtArgs>
@@ -809,6 +846,7 @@ export type $ConnectedAccountPayload<ExtArgs extends runtime.Types.Extensions.In
     id: number
     userId: number
     platform: $Enums.Platform
+    refreshToken: string
     accessToken: string
     expiresAt: Date
     adAccountId: string
@@ -1243,6 +1281,7 @@ export interface ConnectedAccountFieldRefs {
   readonly id: Prisma.FieldRef<"ConnectedAccount", 'Int'>
   readonly userId: Prisma.FieldRef<"ConnectedAccount", 'Int'>
   readonly platform: Prisma.FieldRef<"ConnectedAccount", 'Platform'>
+  readonly refreshToken: Prisma.FieldRef<"ConnectedAccount", 'String'>
   readonly accessToken: Prisma.FieldRef<"ConnectedAccount", 'String'>
   readonly expiresAt: Prisma.FieldRef<"ConnectedAccount", 'DateTime'>
   readonly adAccountId: Prisma.FieldRef<"ConnectedAccount", 'String'>

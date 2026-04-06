@@ -118,6 +118,7 @@ export const ConnectedAccountScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   platform: 'platform',
+  refreshToken: 'refreshToken',
   accessToken: 'accessToken',
   expiresAt: 'expiresAt',
   adAccountId: 'adAccountId',

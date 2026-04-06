@@ -52,6 +52,7 @@ model ConnectedAccount {
   id            Int             @id @default(autoincrement())
   userId        Int
   platform      Platform
+  refreshToken  String
   accessToken   String
   expiresAt     DateTime
   adAccountId   String
@@ -87,5 +88,5 @@ model CachedInsight {
 }
 
 enum Platform {
-  META
+  GOOGLE
 }
