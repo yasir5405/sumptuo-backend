@@ -240,10 +240,26 @@ export const fetchGoogleAdsAccounts = async (req: Request, res: Response) => {
       new Map(validAccounts.map((acc) => [acc.id, acc])).values(),
     );
 
-    if (uniqueAccounts.length === 0) {
+    const connectedAccounts = await prisma.connectedAccount.findMany({
+      where: {
+        userId,
+        platform: "GOOGLE",
+      },
+      select: {
+        adAccountId: true,
+      },
+    });
+
+    const connectedIds = new Set(connectedAccounts.map((a) => a.adAccountId));
+
+    const availableAccounts = uniqueAccounts.filter(
+      (acc) => !connectedIds.has(acc.id),
+    );
+
+    if (availableAccounts.length === 0) {
       const response: ApiResponse<[]> = {
         data: [],
-        message: "No valid Google Ads accounts found",
+        message: "No valid Google Ads accounts found", // or "All accounts already connected"
         success: false,
         error: {
           message: "No valid Google Ads accounts found",
@@ -253,7 +269,7 @@ export const fetchGoogleAdsAccounts = async (req: Request, res: Response) => {
     }
 
     const response: ApiResponse<{
-      accounts: typeof uniqueAccounts;
+      accounts: typeof availableAccounts;
       tokens: {
         accessToken: string;
         refreshToken: string;
@@ -266,7 +282,7 @@ export const fetchGoogleAdsAccounts = async (req: Request, res: Response) => {
           expiryDate,
           refreshToken: refreshToken!,
         },
-        accounts: uniqueAccounts,
+        accounts: availableAccounts,
       },
       message: "Accounts fetched successfully",
       success: true,
