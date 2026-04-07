@@ -2,6 +2,7 @@ import { Router } from "express";
 import {
   fetchGoogleAdsAccounts,
   getAccountSummary,
+  getAllCampaignsOfClient,
   getConnectedAccounts,
   googleLogin,
   saveGoogleAdsAccounts,
@@ -15,4 +16,5 @@ googleRouter.get("/accounts", verifyUser, fetchGoogleAdsAccounts);
 googleRouter.post("/accounts/save", verifyUser, saveGoogleAdsAccounts);
 googleRouter.get("/connected-accounts", verifyUser, getConnectedAccounts);
 googleRouter.get("/summary", verifyUser, getAccountSummary);
+googleRouter.get("/campaigns", verifyUser, getAllCampaignsOfClient);
 export { googleRouter };

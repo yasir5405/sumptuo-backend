@@ -543,3 +543,94 @@ export const getAccountSummary = async (req: Request, res: Response) => {
     return res.status(500).json(response);
   }
 };
+
+export const getAllCampaignsOfClient = async (req: Request, res: Response) => {
+  const userId = req.user?.id;
+  const { accountId } = req.query;
+
+  if (!accountId) {
+    const response: ApiResponse<null> = {
+      data: null,
+      message: "accountId is required",
+      success: false,
+      error: {
+        message: "accountId is required",
+      },
+    };
+
+    return res.status(400).json(response);
+  }
+
+  try {
+    const connectedAccount = await prisma.connectedAccount.findFirst({
+      where: {
+        userId,
+        platform: "GOOGLE",
+        adAccountId: accountId as string,
+      },
+    });
+
+    if (!connectedAccount) {
+      const response: ApiResponse<null> = {
+        data: null,
+        message: "Account not found or not connected",
+        success: false,
+        error: {
+          message: "Account not found or not connected",
+        },
+      };
+
+      return res.status(404).json(response);
+    }
+
+    const customer = googleAdsClient.Customer({
+      customer_id: accountId as string,
+      refresh_token: connectedAccount.refreshToken,
+      login_customer_id: connectedAccount.mccId ?? undefined,
+    });
+
+    const rows = await customer.query(`
+      SELECT
+    campaign.id,
+    campaign.name,
+    campaign.status,
+    metrics.cost_micros,
+    metrics.impressions,
+    metrics.clicks,
+    metrics.ctr
+  FROM campaign
+  WHERE segments.date DURING LAST_30_DAYS
+  ORDER BY metrics.cost_micros DESC
+      `);
+
+    const campaigns = rows.map((row) => ({
+      id: row.campaign?.id,
+      name: row.campaign?.name,
+      status: row.campaign?.status,
+      spend: Number(row.metrics?.cost_micros ?? 0) / 1_000_000,
+      impressions: Number(row.metrics?.impressions ?? 0),
+      clicks: Number(row.metrics?.clicks ?? 0),
+      ctr: Number(row.metrics?.ctr ?? 0) * 100,
+    }));
+
+    const response: ApiResponse<typeof campaigns> = {
+      data: campaigns,
+      message: "Campaigns fetched successfully",
+      success: true,
+    };
+
+    return res.status(200).json(response);
+  } catch (error: any) {
+    console.error("CAMPAIGN ERROR:", error);
+    const response: ApiResponse<null> = {
+      data: null,
+      message: error?.message || "Internal server error",
+      success: false,
+      error: {
+        message: error?.message || "Internal server error",
+      },
+    };
+
+    return res.status(500).json(response);
+  }
+};
