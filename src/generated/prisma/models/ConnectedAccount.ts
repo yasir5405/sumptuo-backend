@@ -47,6 +47,7 @@ export type ConnectedAccountMinAggregateOutputType = {
   adAccountName: string | null
   createdAt: Date | null
   updatedAt: Date | null
+  mccId: string | null
 }
 
 export type ConnectedAccountMaxAggregateOutputType = {
@@ -60,6 +61,7 @@ export type ConnectedAccountMaxAggregateOutputType = {
   adAccountName: string | null
   createdAt: Date | null
   updatedAt: Date | null
+  mccId: string | null
 }
 
 export type ConnectedAccountCountAggregateOutputType = {
@@ -73,6 +75,7 @@ export type ConnectedAccountCountAggregateOutputType = {
   adAccountName: number
   createdAt: number
   updatedAt: number
+  mccId: number
   _all: number
 }
 
@@ -98,6 +101,7 @@ export type ConnectedAccountMinAggregateInputType = {
   adAccountName?: true
   createdAt?: true
   updatedAt?: true
+  mccId?: true
 }
 
 export type ConnectedAccountMaxAggregateInputType = {
@@ -111,6 +115,7 @@ export type ConnectedAccountMaxAggregateInputType = {
   adAccountName?: true
   createdAt?: true
   updatedAt?: true
+  mccId?: true
 }
 
 export type ConnectedAccountCountAggregateInputType = {
@@ -124,6 +129,7 @@ export type ConnectedAccountCountAggregateInputType = {
   adAccountName?: true
   createdAt?: true
   updatedAt?: true
+  mccId?: true
   _all?: true
 }
 
@@ -224,6 +230,7 @@ export type ConnectedAccountGroupByOutputType = {
   adAccountName: string
   createdAt: Date
   updatedAt: Date
+  mccId: string | null
   _count: ConnectedAccountCountAggregateOutputType | null
   _avg: ConnectedAccountAvgAggregateOutputType | null
   _sum: ConnectedAccountSumAggregateOutputType | null
@@ -260,6 +267,7 @@ export type ConnectedAccountWhereInput = {
   adAccountName?: Prisma.StringFilter<"ConnectedAccount"> | string
   createdAt?: Prisma.DateTimeFilter<"ConnectedAccount"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"ConnectedAccount"> | Date | string
+  mccId?: Prisma.StringNullableFilter<"ConnectedAccount"> | string | null
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   insights?: Prisma.CachedInsightListRelationFilter
 }
@@ -275,6 +283,7 @@ export type ConnectedAccountOrderByWithRelationInput = {
   adAccountName?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  mccId?: Prisma.SortOrderInput | Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
   insights?: Prisma.CachedInsightOrderByRelationAggregateInput
 }
@@ -294,6 +303,7 @@ export type ConnectedAccountWhereUniqueInput = Prisma.AtLeast<{
   adAccountName?: Prisma.StringFilter<"ConnectedAccount"> | string
   createdAt?: Prisma.DateTimeFilter<"ConnectedAccount"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"ConnectedAccount"> | Date | string
+  mccId?: Prisma.StringNullableFilter<"ConnectedAccount"> | string | null
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   insights?: Prisma.CachedInsightListRelationFilter
 }, "id" | "userId_platform_adAccountId">
@@ -309,6 +319,7 @@ export type ConnectedAccountOrderByWithAggregationInput = {
   adAccountName?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  mccId?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.ConnectedAccountCountOrderByAggregateInput
   _avg?: Prisma.ConnectedAccountAvgOrderByAggregateInput
   _max?: Prisma.ConnectedAccountMaxOrderByAggregateInput
@@ -330,6 +341,7 @@ export type ConnectedAccountScalarWhereWithAggregatesInput = {
   adAccountName?: Prisma.StringWithAggregatesFilter<"ConnectedAccount"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"ConnectedAccount"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"ConnectedAccount"> | Date | string
+  mccId?: Prisma.StringNullableWithAggregatesFilter<"ConnectedAccount"> | string | null
 }
 
 export type ConnectedAccountCreateInput = {
@@ -341,6 +353,7 @@ export type ConnectedAccountCreateInput = {
   adAccountName: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  mccId?: string | null
   user: Prisma.UserCreateNestedOneWithoutConnectedAccountsInput
   insights?: Prisma.CachedInsightCreateNestedManyWithoutConnectedAccountInput
 }
@@ -356,6 +369,7 @@ export type ConnectedAccountUncheckedCreateInput = {
   adAccountName: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  mccId?: string | null
   insights?: Prisma.CachedInsightUncheckedCreateNestedManyWithoutConnectedAccountInput
 }
 
@@ -368,6 +382,7 @@ export type ConnectedAccountUpdateInput = {
   adAccountName?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  mccId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   user?: Prisma.UserUpdateOneRequiredWithoutConnectedAccountsNestedInput
   insights?: Prisma.CachedInsightUpdateManyWithoutConnectedAccountNestedInput
 }
@@ -383,6 +398,7 @@ export type ConnectedAccountUncheckedUpdateInput = {
   adAccountName?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  mccId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   insights?: Prisma.CachedInsightUncheckedUpdateManyWithoutConnectedAccountNestedInput
 }
 
@@ -397,6 +413,7 @@ export type ConnectedAccountCreateManyInput = {
   adAccountName: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  mccId?: string | null
 }
 
 export type ConnectedAccountUpdateManyMutationInput = {
@@ -408,6 +425,7 @@ export type ConnectedAccountUpdateManyMutationInput = {
   adAccountName?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  mccId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type ConnectedAccountUncheckedUpdateManyInput = {
@@ -421,6 +439,7 @@ export type ConnectedAccountUncheckedUpdateManyInput = {
   adAccountName?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  mccId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type ConnectedAccountListRelationFilter = {
@@ -450,6 +469,7 @@ export type ConnectedAccountCountOrderByAggregateInput = {
   adAccountName?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  mccId?: Prisma.SortOrder
 }
 
 export type ConnectedAccountAvgOrderByAggregateInput = {
@@ -468,6 +488,7 @@ export type ConnectedAccountMaxOrderByAggregateInput = {
   adAccountName?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  mccId?: Prisma.SortOrder
 }
 
 export type ConnectedAccountMinOrderByAggregateInput = {
@@ -481,6 +502,7 @@ export type ConnectedAccountMinOrderByAggregateInput = {
   adAccountName?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  mccId?: Prisma.SortOrder
 }
 
 export type ConnectedAccountSumOrderByAggregateInput = {
@@ -562,6 +584,7 @@ export type ConnectedAccountCreateWithoutUserInput = {
   adAccountName: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  mccId?: string | null
   insights?: Prisma.CachedInsightCreateNestedManyWithoutConnectedAccountInput
 }
 
@@ -575,6 +598,7 @@ export type ConnectedAccountUncheckedCreateWithoutUserInput = {
   adAccountName: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  mccId?: string | null
   insights?: Prisma.CachedInsightUncheckedCreateNestedManyWithoutConnectedAccountInput
 }
 
@@ -618,6 +642,7 @@ export type ConnectedAccountScalarWhereInput = {
   adAccountName?: Prisma.StringFilter<"ConnectedAccount"> | string
   createdAt?: Prisma.DateTimeFilter<"ConnectedAccount"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"ConnectedAccount"> | Date | string
+  mccId?: Prisma.StringNullableFilter<"ConnectedAccount"> | string | null
 }
 
 export type ConnectedAccountCreateWithoutInsightsInput = {
@@ -629,6 +654,7 @@ export type ConnectedAccountCreateWithoutInsightsInput = {
   adAccountName: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  mccId?: string | null
   user: Prisma.UserCreateNestedOneWithoutConnectedAccountsInput
 }
 
@@ -643,6 +669,7 @@ export type ConnectedAccountUncheckedCreateWithoutInsightsInput = {
   adAccountName: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  mccId?: string | null
 }
 
 export type ConnectedAccountCreateOrConnectWithoutInsightsInput = {
@@ -670,6 +697,7 @@ export type ConnectedAccountUpdateWithoutInsightsInput = {
   adAccountName?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  mccId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   user?: Prisma.UserUpdateOneRequiredWithoutConnectedAccountsNestedInput
 }
 
@@ -684,6 +712,7 @@ export type ConnectedAccountUncheckedUpdateWithoutInsightsInput = {
   adAccountName?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  mccId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type ConnectedAccountCreateManyUserInput = {
@@ -696,6 +725,7 @@ export type ConnectedAccountCreateManyUserInput = {
   adAccountName: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  mccId?: string | null
 }
 
 export type ConnectedAccountUpdateWithoutUserInput = {
@@ -707,6 +737,7 @@ export type ConnectedAccountUpdateWithoutUserInput = {
   adAccountName?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  mccId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   insights?: Prisma.CachedInsightUpdateManyWithoutConnectedAccountNestedInput
 }
 
@@ -720,6 +751,7 @@ export type ConnectedAccountUncheckedUpdateWithoutUserInput = {
   adAccountName?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  mccId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   insights?: Prisma.CachedInsightUncheckedUpdateManyWithoutConnectedAccountNestedInput
 }
 
@@ -733,6 +765,7 @@ export type ConnectedAccountUncheckedUpdateManyWithoutUserInput = {
   adAccountName?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  mccId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 
@@ -777,6 +810,7 @@ export type ConnectedAccountSelect<ExtArgs extends runtime.Types.Extensions.Inte
   adAccountName?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  mccId?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   insights?: boolean | Prisma.ConnectedAccount$insightsArgs<ExtArgs>
   _count?: boolean | Prisma.ConnectedAccountCountOutputTypeDefaultArgs<ExtArgs>
@@ -793,6 +827,7 @@ export type ConnectedAccountSelectCreateManyAndReturn<ExtArgs extends runtime.Ty
   adAccountName?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  mccId?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["connectedAccount"]>
 
@@ -807,6 +842,7 @@ export type ConnectedAccountSelectUpdateManyAndReturn<ExtArgs extends runtime.Ty
   adAccountName?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  mccId?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["connectedAccount"]>
 
@@ -821,9 +857,10 @@ export type ConnectedAccountSelectScalar = {
   adAccountName?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  mccId?: boolean
 }
 
-export type ConnectedAccountOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "platform" | "refreshToken" | "accessToken" | "expiresAt" | "adAccountId" | "adAccountName" | "createdAt" | "updatedAt", ExtArgs["result"]["connectedAccount"]>
+export type ConnectedAccountOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "platform" | "refreshToken" | "accessToken" | "expiresAt" | "adAccountId" | "adAccountName" | "createdAt" | "updatedAt" | "mccId", ExtArgs["result"]["connectedAccount"]>
 export type ConnectedAccountInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   insights?: boolean | Prisma.ConnectedAccount$insightsArgs<ExtArgs>
@@ -853,6 +890,7 @@ export type $ConnectedAccountPayload<ExtArgs extends runtime.Types.Extensions.In
     adAccountName: string
     createdAt: Date
     updatedAt: Date
+    mccId: string | null
   }, ExtArgs["result"]["connectedAccount"]>
   composites: {}
 }
@@ -1288,6 +1326,7 @@ export interface ConnectedAccountFieldRefs {
   readonly adAccountName: Prisma.FieldRef<"ConnectedAccount", 'String'>
   readonly createdAt: Prisma.FieldRef<"ConnectedAccount", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"ConnectedAccount", 'DateTime'>
+  readonly mccId: Prisma.FieldRef<"ConnectedAccount", 'String'>
 }
     
 

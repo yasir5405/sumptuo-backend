@@ -202,7 +202,7 @@ export const fetchGoogleAdsAccounts = async (req: Request, res: Response) => {
 
     const customerIds = listResponse.resource_names.map((r) => r.split("/")[1]);
 
-    const validAccounts: { id: string; name: string }[] = [];
+    const validAccounts: { id: string; name: string; mccId: string }[] = [];
 
     // 🧠 STEP 2: Process each account
     for (const customerId of customerIds) {
@@ -228,6 +228,7 @@ export const fetchGoogleAdsAccounts = async (req: Request, res: Response) => {
           validAccounts.push({
             id: client.id.toString(),
             name: client.descriptive_name || `Account ${client.id}`,
+            mccId: customerId,
           });
         });
       } catch (err: any) {
@@ -315,7 +316,7 @@ export const saveGoogleAdsAccounts = async (req: Request, res: Response) => {
   const userId = req.user!.id;
 
   const { selectedAccounts, tokens } = req.body as {
-    selectedAccounts: { id: string; name: string }[];
+    selectedAccounts: { id: string; name: string; mccId: string }[];
     tokens: {
       accessToken: string;
       refreshToken: string;
@@ -363,6 +364,7 @@ export const saveGoogleAdsAccounts = async (req: Request, res: Response) => {
           refreshToken: tokens.refreshToken,
           expiresAt: new Date(tokens.expiryDate),
           adAccountName: acc.name,
+          mccId: acc.mccId,
         },
         create: {
           userId,
@@ -372,6 +374,7 @@ export const saveGoogleAdsAccounts = async (req: Request, res: Response) => {
           expiresAt: new Date(tokens.expiryDate),
           adAccountId: acc.id,
           adAccountName: acc.name,
+          mccId: acc.mccId,
         },
       });
 
@@ -427,6 +430,107 @@ export const getConnectedAccounts = async (req: Request, res: Response) => {
     return res.status(200).json(response);
   } catch (error: any) {
     console.error("FETCHING CONNECTED ACCOUNTS ERROR:", error);
+    const response: ApiResponse<null> = {
+      data: null,
+      message: error?.message || "Internal server error",
+      success: false,
+      error: {
+        message: error?.message || "Internal server error",
+      },
+    };
+
+    return res.status(500).json(response);
+  }
+};
+
+export const getAccountSummary = async (req: Request, res: Response) => {
+  const userId = req.user!.id;
+  const { accountId } = req.query;
+
+  if (!accountId) {
+    const response: ApiResponse<null> = {
+      data: null,
+      message: "accountId is required",
+      success: false,
+      error: {
+        message: "accountId is required",
+      },
+    };
+
+    return res.status(400).json(response);
+  }
+
+  try {
+    const connectedAccount = await prisma.connectedAccount.findFirst({
+      where: {
+        userId,
+        adAccountId: accountId as string,
+        platform: "GOOGLE",
+      },
+    });
+
+    if (!connectedAccount) {
+      const response: ApiResponse<null> = {
+        data: null,
+        message: "Account not found or not connected",
+        success: false,
+        error: {
+          message: "Account not found or not connected",
+        },
+      };
+
+      return res.status(404).json(response);
+    }
+
+    const customer = googleAdsClient.Customer({
+      customer_id: accountId as string,
+      refresh_token: connectedAccount.refreshToken,
+      login_customer_id: connectedAccount.mccId ?? undefined,
+    });
+
+    const rows = await customer.query(`
+        SELECT
+        metrics.cost_micros,
+        metrics.impressions,
+        metrics.clicks,
+        metrics.ctr
+      FROM customer
+      WHERE segments.date DURING LAST_30_DAYS
+      `);
+
+    let totalCostMicros = 0;
+    let totalImpressions = 0;
+    let totalClicks = 0;
+
+    rows.forEach((row: any) => {
+      totalCostMicros += Number(row.metrics?.cost_micros ?? 0);
+      totalImpressions += Number(row.metrics?.impressions ?? 0);
+      totalClicks += Number(row.metrics?.clicks ?? 0);
+    });
+
+    const totalSpend = totalCostMicros / 1_000_000;
+    const ctr =
+      totalImpressions > 0 ? (totalClicks / totalImpressions) * 100 : 0;
+
+    const response: ApiResponse<{
+      spend: number;
+      impressions: number;
+      clicks: number;
+      ctr: number;
+    }> = {
+      data: {
+        spend: parseFloat(totalSpend.toFixed(2)),
+        impressions: totalImpressions,
+        clicks: totalClicks,
+        ctr: parseFloat(ctr.toFixed(2)),
+      },
+      message: "Summary fetched successfully",
+      success: true,
+    };
+
+    return res.status(200).json(response);
+  } catch (error: any) {
+    console.error("SUMMARY ERROR:", error);
     const response: ApiResponse<null> = {
       data: null,
       message: error?.message || "Internal server error",

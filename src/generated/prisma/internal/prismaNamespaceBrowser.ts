@@ -124,7 +124,8 @@ export const ConnectedAccountScalarFieldEnum = {
   adAccountId: 'adAccountId',
   adAccountName: 'adAccountName',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  mccId: 'mccId'
 } as const
 
 export type ConnectedAccountScalarFieldEnum = (typeof ConnectedAccountScalarFieldEnum)[keyof typeof ConnectedAccountScalarFieldEnum]

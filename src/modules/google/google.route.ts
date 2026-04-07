@@ -1,6 +1,7 @@
 import { Router } from "express";
 import {
   fetchGoogleAdsAccounts,
+  getAccountSummary,
   getConnectedAccounts,
   googleLogin,
   saveGoogleAdsAccounts,
@@ -13,5 +14,5 @@ googleRouter.get("/", googleLogin);
 googleRouter.get("/accounts", verifyUser, fetchGoogleAdsAccounts);
 googleRouter.post("/accounts/save", verifyUser, saveGoogleAdsAccounts);
 googleRouter.get("/connected-accounts", verifyUser, getConnectedAccounts);
-
+googleRouter.get("/summary", verifyUser, getAccountSummary);
 export { googleRouter };
