@@ -2,33 +2,9 @@ import { Resend } from "resend";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-const signature = `
-<table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr><td style="padding:0 48px;"><div style="height:1px;background:#191919;font-size:0;line-height:0;">&nbsp;</div></td></tr>
-</table>
-<table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr>
-    <td style="padding:26px 48px 36px 48px;">
-      <table cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td style="padding-right:12px;border-right:2px solid oklch(0.5676 0.2021 283.08);vertical-align:middle;">
-            <img src="https://sumptuo.app/favicon.svg" width="36" height="36" alt="Sumptuo" />
-          </td>
-          <td style="padding-left:12px;vertical-align:middle;">
-            <p style="margin:0;font-weight:600;font-size:14px;color:#e0e0e0;">Yasir</p>
-            <p style="margin:0;font-size:12px;color:#555;">Sumptuo &mdash; Ad analytics for Meta &amp; Google Ads</p>
-            <p style="margin:0;font-size:12px;"><a href="https://sumptuo.app" style="color:oklch(0.5676 0.2021 283.08);text-decoration:none;">sumptuo.app</a></p>
-          </td>
-        </tr>
-      </table>
-    </td>
-  </tr>
-</table>
-`;
-
 export const sendWelcomeEmail = async (to: string, name: string) => {
   const { error } = await resend.emails.send({
-    from: "Sumptuo <noreply@sumptuo.app>",
+    from: "Sumptuo <hello@sumptuo.app>",
     to,
     subject: "Welcome to Sumptuo",
     html: `<!DOCTYPE html>
@@ -158,7 +134,6 @@ export const sendWelcomeEmail = async (to: string, name: string) => {
                   </td>
                 </tr>
               </table>
-              ${signature}
             </td>
           </tr>
           <tr>
@@ -184,7 +159,7 @@ export const sendWelcomeEmail = async (to: string, name: string) => {
 
 export const sendOtpEmail = async (to: string, otp: string) => {
   const { error } = await resend.emails.send({
-    from: "Sumptuo <noreply@sumptuo.app>",
+    from: "Sumptuo <hello@sumptuo.app>",
     to,
     subject: "Your password reset code",
     html: `<!DOCTYPE html>
@@ -288,7 +263,6 @@ export const sendOtpEmail = async (to: string, otp: string) => {
                   </td>
                 </tr>
               </table>
-              ${signature}
             </td>
           </tr>
 
